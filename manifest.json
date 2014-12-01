@@ -1,0 +1,20 @@
+{
+   "description": "拥有自主学习功能的智能代理",
+   "background": {
+      "page": "background.htm"
+   },
+   "content_scripts": [  ],
+   "icons": {
+      "128": "images/icon.png"
+   },
+   "browser_action": {
+      "default_icon": "images/icon.png",
+      "default_title": "代理设置",
+      "default_popup": "popup.htm"
+   },
+   "manifest_version": 2,
+   "name": "智能代理",
+   "options_page": "option.htm",
+   "permissions": [ "proxy", "tabs", "webRequest", "unlimitedStorage", "<all_urls>" ],
+   "version": "0.0.1.3"
+}

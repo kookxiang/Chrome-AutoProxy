@@ -1,0 +1,57 @@
+html, body, div, h1, h2, h3, h4, h5, h6, p, img, dl, dt, dd, ol, ul, li, table, tr, td, form, object, embed, article, aside, canvas, details, figcaption, figure, footer, header, mark, menu, meter, nav, output, progress, section, summary, time, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	font-family: menu "Microsoft YaHei", arial, helvetica, sans-serif;
+	-webkit-user-select: none;
+	background: #fff;
+	color: #333;
+	line-height: 1;
+	height: auto;
+}
+
+body * {
+	white-space: nowrap;
+}
+
+.menu .item {
+	display: block;
+	cursor: pointer;
+	white-space: nowrap;
+	margin: 2px 4px 2px 2px;
+	padding: 6px 10px;
+	height: auto;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+.menu .item.radio {
+	color: #555;
+	height: 14px;
+	line-height: 14px;
+}
+
+.menu .item.radio.selected {
+	color: #06a4f4;
+	border-color: #dedede;
+}
+
+.menu .item:hover {
+	border-color: #bbccdd;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(0.4, hsl(215, 67%, 97%)), color-stop(0.41, hsl(213, 48%, 95%)));
+}
+
+.menu .item:active {
+	border-color: #aabbcc;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e8eef4), color-stop(1, #f5f9f4));
+}
+
+.menu .separator {
+	display: block;
+	margin: 4px -1px;
+	border-top: 1px solid #dedede;
+	height: 0;
+}
