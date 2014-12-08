@@ -17,12 +17,15 @@ function onErrorOccurred(details){
 	}
 }
 function inArray(needle, haystack) {
+	return haystack.indexOf(needle) >= 0;
+/*
 	var i = 0, len = haystack.length;
 	for (; i < len; i++) {
 		if (haystack[i] === needle)
 			return true;
 	}
 	return false;
+*/
 }
 function getHost(url){
 	var object = document.createElement('a');
