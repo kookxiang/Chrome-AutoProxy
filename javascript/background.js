@@ -77,6 +77,7 @@ function onReceivedMessage(message, sender, sendResponse){
 	}
 }
 chrome.runtime.onMessage.addListener(onReceivedMessage);
+proxyDatabase.open();
 function addToSiteList(site){
 	var host = site.host;
 	if(!host) return;
