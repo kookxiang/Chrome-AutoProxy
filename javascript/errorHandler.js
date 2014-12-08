@@ -11,9 +11,9 @@ function reloadMatchErrorList(){
 function onErrorOccurred(details){
 	if(proxyMode != 0) return;
 	if(inArray(details.error, matchError)){
-		var _host = getHost(details.url);
-		console.log(_host + ' seems be blocked, add to PAC file');
-		addToSiteList({ host: _host });
+		var host = getHost(details.url);
+		console.log(host + ' seems be blocked');
+		addToSiteList(host);
 	}
 }
 function inArray(needle, haystack) {
