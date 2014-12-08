@@ -6,6 +6,7 @@ proxyDatabase.open = function() {
 	request.onsuccess = function(event) {
 		proxyDatabase.db = event.target.result;
 		console.log('Successfully initialised indexedDB');
+		proxyDatabase.onsuccess();
 	};
 	request.onupgradeneeded = function(event) {
 		proxyDatabase.db = event.target.result;
@@ -16,10 +17,12 @@ proxyDatabase.open = function() {
 		console.log('An error occur while initialising indexedDB');
 	};
 };
+proxyDatabase.onsuccess = function(){};
 proxyDatabase.onerror = window.onerror;
 proxyDatabase.addSiteToBlackList = function(host, onsuccess, onerror) {
 	if(proxyDatabase.db == null) this.open();
 	if(typeof onerror != "function") onerror = proxyDatabase.onerror;
+	console.log('Add ' + host + ' to blacklist');
 	var request = proxyDatabase.db.transaction("blacklist", "readwrite").objectStore("blacklist").add({
 		"host": host,
 	});
@@ -29,6 +32,7 @@ proxyDatabase.addSiteToBlackList = function(host, onsuccess, onerror) {
 proxyDatabase.addSiteToWhiteList = function(host, onsuccess, onerror) {
 	if(proxyDatabase.db == null) this.open();
 	if(typeof onerror != "function") onerror = proxyDatabase.onerror;
+	console.log('Add ' + host + ' to whitelist');
 	var request = proxyDatabase.db.transaction("whitelist", "readwrite").objectStore("whitelist").add({
 		"host": host,
 	});
@@ -66,6 +70,7 @@ proxyDatabase.getWhiteList = function(onsuccess, onerror){
 proxyDatabase.removeFromBlackList = function(host, onsuccess, onerror){
 	if(proxyDatabase.db == null) this.open();
 	if(typeof onerror != "function") onerror = proxyDatabase.onerror;
+	console.log('Remove ' + host + ' from blacklist');
 	var request = proxyDatabase.db.transaction("blacklist", "readwrite").objectStore("blacklist").delete(host);
 	request.onsuccess = onsuccess;
 	request.onerror = onerror;
@@ -73,6 +78,7 @@ proxyDatabase.removeFromBlackList = function(host, onsuccess, onerror){
 proxyDatabase.removeFromWhiteList = function(host, onsuccess, onerror){
 	if(proxyDatabase.db == null) this.open();
 	if(typeof onerror != "function") onerror = proxyDatabase.onerror;
+	console.log('Remove ' + host + ' from whitelist');
 	var request = proxyDatabase.db.transaction("whitelist", "readwrite").objectStore("whitelist").delete(host);
 	request.onsuccess = onsuccess;
 	request.onerror = onerror;
