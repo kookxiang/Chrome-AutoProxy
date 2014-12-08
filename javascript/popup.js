@@ -29,7 +29,7 @@ $('#config').addEventListener('click', function(event){
 });
 
 $('#about').addEventListener('click', function(event){
-	window.open('https://groups.google.com/forum/#!forum/smartproxy');
+	window.open('https://github.com/kookxiang/Chrome-AutoProxy');
 });
 
 $('#proxyMode_auto').addEventListener('click', function(event){
