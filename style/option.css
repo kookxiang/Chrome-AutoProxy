@@ -552,8 +552,8 @@ header li a:hover, header li a:active {
 }
 
 .container.blur {
-	-webkit-filter: blur(3px);
-	filter: blur(3px);
+	-webkit-filter: blur(2px);
+	filter: blur(2px);
 }
 
 .container h1 {
