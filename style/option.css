@@ -17,7 +17,6 @@ blockquote {
 }
 
 html {
-	font-family: "Microsoft YaHei", arial, helvetica, sans-serif;
 	background: #fff;
 	color: #333;
 	line-height: 1;
@@ -30,6 +29,7 @@ html {
 }
 
 body {
+	font-family: "Microsoft YaHei", arial, helvetica, sans-serif;
 	position: absolute;
 	min-height: 100%;
 	width: 100%;
