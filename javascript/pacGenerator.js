@@ -1,17 +1,17 @@
 var currentPacFile;
 function generatePac(){
-	if(!blockedSite) return false;
+	var _blockedSite = blockedSite.concat(blacklistSite);
 	currentPacFile = 'var defaultProxy = "' + setting.proxy + '";';
 	currentPacFile += 'var sites = [];';
 
 	var flag = [];
-	for (var i = blockedSite.length - 1; i >= 0; i--) {
-		var len = blockedSite[i].length;
+	for (var i = _blockedSite.length - 1; i >= 0; i--) {
+		var len = _blockedSite[i].length;
 		if(!flag[ len ]){
 			flag[ len ] = true;
 			currentPacFile += 'sites['+len+'] = [];';
 		}
-		currentPacFile += 'sites['+len+'].push("'+blockedSite[i]+'");';
+		currentPacFile += 'sites['+len+'].push("'+_blockedSite[i]+'");';
 	}
 
 	currentPacFile += _getSiteProxy.toString();
@@ -52,6 +52,6 @@ function setProxy(){
 
 // functions in pac file:
 function _getSiteProxy(host){ if(sites[host.length]){ if(_inArray(host, sites[host.length])){ return defaultProxy; }else{ return 'DIRECT'; } }else{ return 'DIRECT'; } }
-function _inArray(needle, haystack) { var i = 0, len = haystack.length; for (; i < len; i++) { if (haystack[i] === needle) return true; } return false; }
+function _inArray(needle, haystack) { return haystack.indexOf(needle) >= 0; }
 generatePac();
 setProxy();

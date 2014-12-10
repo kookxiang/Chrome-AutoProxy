@@ -10,6 +10,7 @@ var blockedSite = [
 	'twitter.com',
 	'www.facebook.com',
 ];
+var blacklistSite = [], whitelistSite = [];
 var setting;
 var proxyMode = 0;
 if(localStorage['setting']){
@@ -36,11 +37,9 @@ function onReceivedMessage(message, sender, sendResponse){
 		default:
 			console.log('Unknown message: ' + message);
 			return;
-		case 1:
 		case "getSetting":
 			sendResponse(setting);
 			return;
-		case 2:
 		case "saveSetting":
 			setting = messageObj.data;
 			reloadMatchErrorList();
@@ -49,28 +48,33 @@ function onReceivedMessage(message, sender, sendResponse){
 			localStorage.setItem('setting', JSON.stringify(setting));
 			sendResponse();
 			return;
-		case 11:
 		case "getBlockedSite":
 			sendResponse(blockedSite);
 			return;
-		case 12:
+		case "getWhiteListSite":
+			sendResponse(whitelistSite);
+			return;
+		case "getBlackListSite":
+			sendResponse(blacklistSite);
+			return;
 		case "addBlockedSite":
-			addToSiteList(messageObj);
+			addToSiteList(messageObj.host);
 			sendResponse();
 			return;
-		case 21:
+		case "removeBlockedSite":
+			removeFromSiteList(messageObj.host);
+			sendResponse();
+			return;
 		case "refreshPac":
 			generatePac();
 			setProxy();
 			sendResponse();
 			return;
-		case 31:
 		case "setProxyMode":
 			proxyMode = messageObj.mode;
 			setProxy();
 			sendResponse();
 			return;
-		case 32:
 		case "getProxyMode":
 			sendResponse(proxyMode);
 			return;
@@ -78,11 +82,31 @@ function onReceivedMessage(message, sender, sendResponse){
 }
 chrome.runtime.onMessage.addListener(onReceivedMessage);
 proxyDatabase.open();
-function addToSiteList(site){
-	var host = site.host;
+proxyDatabase.onsuccess = function(){
+	loadSitesFromDatabase();
+	generatePac();
+	setProxy();
+};
+function loadSitesFromDatabase(){
+	proxyDatabase.getWhiteList(function(whitelist){ whitelistSite = whitelist; });
+	proxyDatabase.getBlackList(function(blacklist){ blacklistSite = blacklist; });
+}
+function addToSiteList(host){
 	if(!host) return;
 	if(inArray(host, blockedSite)) return;
+	loadSitesFromDatabase();
+	if(inArray(host, whitelistSite)) return;
+	console.log('Add '+host+' to blocked site list');
 	blockedSite.push(host);
+	generatePac();
+	setProxy();
+}
+function removeFromSiteList(host){
+	if(!host) return;
+	if(!inArray(host, blockedSite)) return;
+	console.log('Remove '+host+' from blocked site list');
+	var offset = blockedSite.indexOf(host);
+	blockedSite = blockedSite.slice(0, offset).concat(blockedSite.slice(offset+1, blockedSite.length));
 	generatePac();
 	setProxy();
 }

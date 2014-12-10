@@ -5,7 +5,7 @@ proxyDatabase.open = function() {
 	var request = indexedDB.open("proxy", proxyDatabase.version);
 	request.onsuccess = function(event) {
 		proxyDatabase.db = event.target.result;
-		console.log('Successfully initialised indexedDB');
+		//console.log('Successfully initialised indexedDB');
 		proxyDatabase.onsuccess();
 	};
 	request.onupgradeneeded = function(event) {
