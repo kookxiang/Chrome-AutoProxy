@@ -16,5 +16,5 @@
    "name": "智能代理",
    "options_page": "option.htm",
    "permissions": [ "proxy", "tabs", "webRequest", "unlimitedStorage", "<all_urls>" ],
-   "version": "0.0.1.3"
+   "version": "0.0.1.4"
 }
