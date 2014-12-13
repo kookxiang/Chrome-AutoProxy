@@ -12,7 +12,7 @@ function onErrorOccurred(details){
 	if(proxyMode != 0) return;
 	if(inArray(details.error, matchError)){
 		var host = getHost(details.url);
-		console.log(host + ' seems be blocked');
+		console.log(details.url + ' was blocked');
 		addToSiteList(host);
 	}
 }
