@@ -86,12 +86,10 @@ chrome.runtime.onMessage.addListener(onReceivedMessage);
 proxyDatabase.open();
 proxyDatabase.onsuccess = function(){
 	loadSitesFromDatabase();
-	generatePac();
-	setProxy();
 };
 function loadSitesFromDatabase(){
 	proxyDatabase.getWhiteList(function(whitelist){ whitelistSite = whitelist; });
-	proxyDatabase.getBlackList(function(blacklist){ blacklistSite = blacklist; });
+	proxyDatabase.getBlackList(function(blacklist){ blacklistSite = blacklist; generatePac(); setProxy(); });
 }
 function addToSiteList(host){
 	if(!host) return;
